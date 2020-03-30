@@ -1,0 +1,66 @@
+1. Buka situs web resmi docker hub Di https://
+hub.docker.com/Klik signup dipojok kanan atas.
+Lalu isi id, password, email. ID sebenernya
+username yang harus unik dan berbeda dari 
+yang lain.
+Setelah berhasil kita konfirmasikan 
+akun melalui email yang terdaftar. Lanjut
+Selamat berhasil login. Disini kita bisa
+ upload projek agar nantinya tim kita tinggal 
+pull aja projekannya
+2. Image docker dapat diambil di galeri foto suatu 
+Perangkat mobile atau komputer sesuai keinginan
+3. Langkah langkah yang diperlukan untuk menjalankan
+Dockerd, menjalankan docker untuk mengambil pull 
+Image menjadi container, menghentikan container
+Langkah-1: Pastikan server atau komputer 
+anda sudah terinstall docker. Untuk mengeceknya bisa
+ ketikan perintah docker -v
+$sudo docker -v
+Docker version 18.09.7, build 2d0083d
+Langkah-2: Buat folder dengan nama sample dengan
+$mkdir sample
+Langkah-3: masuk ke folder sample
+$cd sample
+Langkah-4: buat file dengan nama Dockerfile dan isikan dengan code berikut:
+#image base
+FROM nginx:alpine
+#copy aplication file
+COPY html /usr/share/nginx/html
+Langkah-5:Buat folder html
+$mkdir html
+
+Langkah-6: masuk ke folder html dan buat file index.html , isikan dengan kode html berikut:
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Hello World</h1>
+</body>
+</html>
+Langkah-7: masuk ke directory dimana file Dockerfile berada, kemudian ketikan perintah berikut untuk build image
+$sudo docker build -t aplication:versi-1 .
+Langkah-8: Cek image yang telah terbentuk dengan perintah $sudo docker images dan akan muncul seperti berikut:
+$sudo docker images
+output
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+aplication          versi-1               b5132100360e        About a minute ago   21.1MB
+Langkah-9: Jalankan image yang sudah anda buat dengan perintah berikut
+$sudo docker run -d -p 80:80 aplication:versi-1
+Langkah-10: Lihat container yang berjalan
+$sudo docker ps
+output
+CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS              PORTS                  NAMES
+f7ecdffdc1fe        aplication:versi-1   "nginx -g 'daemon of…"   4 seconds ago       Up 3 seconds        0.0.0.0:80->80/tcp     ecstatic_antonelli
+Langkah-11: Uji coba akses localhost port 80, jika berhasil akan tampil aplikasi yang anda buat pada langkah-6.
+$curl -XGET localhost
+output
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Hello World</h1>
+</body>
+</html>
+Jika anda mengakses dari browser, maka aplikasi yang anda buat seperti di langkah-6 akan muncul seperti gambar dibawah ini.
+Pada localhost akan muncul hello world
+Langkah-12: Selesai
+4. Docker file dapat diakses melalui dockerhub 
